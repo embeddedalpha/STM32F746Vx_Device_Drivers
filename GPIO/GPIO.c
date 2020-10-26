@@ -3,10 +3,10 @@
 void GPIO_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t type)
 {
 	
-	PORT -> MODER   |= (uint8_t)((type & (uint8_t)0xC0) << (pin*2));
-	PORT -> OTYPER  |= (uint8_t)((type & (uint8_t)0x20) << pin);
-	PORT -> OSPEEDR |= (uint8_t)((type & (uint8_t)0x18) << (pin*2));
-	PORT -> PUPDR   |= (uint8_t)((type & (uint8_t)0x06) << (pin*2));
+	PORT -> MODER   |= (uint8_t)(((type & (uint8_t)0xC0) >> 6) << (pin * 2));
+	PORT -> OTYPER  |= (uint8_t)(((type & (uint8_t)0x20) >> 5) << (pin * 1));
+	PORT -> OSPEEDR |= (uint8_t)(((type & (uint8_t)0x18) >> 3) << (pin * 2));
+	PORT -> PUPDR   |= (uint8_t)(((type & (uint8_t)0x06) >> 1) << (pin * 2));
 }
 //
 
@@ -40,7 +40,7 @@ void GPIO_Write_Port(GPIO_TypeDef *PORT, uint16_t data)
 
 void GPIO_Pin_Set(GPIO_TypeDef *PORT, uint8_t pin)
 {
-	PORT -> BSRR |= 1 << pin;
+	PORT -> BSRR |= 1 << (pin*1);
 	
 }
 
