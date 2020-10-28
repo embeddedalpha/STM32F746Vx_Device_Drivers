@@ -1,0 +1,48 @@
+#ifndef _DMA_H_
+#define _DMA_H_
+
+
+#include "stm32f746xx.h"
+#include "stdbool.h"
+
+
+#define  peripheral_to_memory	0
+#define  memory_to_peripheral 1
+#define  memory_to_memory	    2
+
+#define circular_mode_enable  1
+#define circular_mode_disable 0
+
+#define memory_increment_enable  1
+#define memory_increment_disable 0
+
+#define memory_data_size_8bit	  0
+#define memory_data_size_16bit	1
+#define memory_data_size_32bit	2
+
+#define priority_level_low	      0
+#define priority_level_medium	    1
+#define priority_level_high	      2
+#define priority_level_very_high	3
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void DMA1_Enable(void);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void DMA2_Enable(void);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void DMA_Setup(DMA_Stream_TypeDef *Stream,uint32_t peripheral_address, uint32_t memory_address,
+	             uint8_t channel,uint8_t data_direction, uint8_t circular_mode, 
+               uint8_t memory_increment_mode, uint8_t memory_data_size, uint8_t priority_level,
+               uint16_t buffer_size
+                  );
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#endif
