@@ -6,28 +6,26 @@
 
 
 
-#define OUT_Gen_Push_Pull	           0b01011000
-#define OUT_Gen_Pull_and_Pull_UP     0b01011010
-#define OUT_Gen_Pull_and_Pull_UD     0b01011100
-#define OUT_Gen_Open_Drain           0b01111000
-#define OUT_Gen_Open_Drain_Pull_UP   0b01111010
-#define OUT_Gen_Open_Drain_Pull_Down 0b01111110
+#define OUT_Gen_Push_Pull	           (uint8_t)88
+#define OUT_Gen_Pull_and_Pull_UP     (uint8_t)90
+#define OUT_Gen_Pull_and_Pull_UD     (uint8_t)92
+#define OUT_Gen_Open_Drain           (uint8_t)120
+#define OUT_Gen_Open_Drain_Pull_UP   (uint8_t)122
+#define OUT_Gen_Open_Drain_Pull_Down (uint8_t)126
 
-#define OUT_Alt_Push_Pull	           0b10011000
-#define OUT_Alt_Pull_and_Pull_UP     0b10011010
-#define OUT_Alt_Pull_and_Pull_UD     0b10011100
-#define OUT_Alt_Open_Drain           0b10111000
-#define OUT_Alt_Open_Drain_Pull_UP   0b10111010
-#define OUT_Alt_Open_Drain_Pull_Down 0b10111110
+#define OUT_Alt_Push_Pull	           (uint8_t)152
+#define OUT_Alt_Pull_and_Pull_UP     (uint8_t)154
+#define OUT_Alt_Pull_and_Pull_UD     (uint8_t)156
+#define OUT_Alt_Open_Drain           (uint8_t)184
+#define OUT_Alt_Open_Drain_Pull_UP   (uint8_t)186
+#define OUT_Alt_Open_Drain_Pull_Down (uint8_t)190
 
-#define IN_Floating                  0b11000000
-#define IN_Pull_UP                   0b00000010
-#define IN_Pull_Down                 0b00000100
-#define IN_Analog                    0b00000000
+#define IN_Floating                  (uint8_t)192
+#define IN_Pull_UP                   (uint8_t)2
+#define IN_Pull_Down                 (uint8_t)4
+#define IN_Analog                    (uint8_t)0
 
-void GPIO_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t type);
-
-void GPIO_ALT_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t function);
+void GPIO_Setup(GPIO_TypeDef *port,uint8_t pin,uint8_t mode);
 
 uint32_t GPIO_Read_PORT(GPIO_TypeDef *PORT);
 
