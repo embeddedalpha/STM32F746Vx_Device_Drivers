@@ -1,28 +1,47 @@
 #include "GPIO.h"
 
-void GPIO_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t type)
+void GPIO_Setup(GPIO_TypeDef *port,uint8_t pin,uint8_t type)
 {
-	
-	PORT -> MODER   |= (uint8_t)(((type & (uint8_t)0xC0) >> 6) << (pin * 2));
-	PORT -> OTYPER  |= (uint8_t)(((type & (uint8_t)0x20) >> 5) << (pin * 1));
-	PORT -> OSPEEDR |= (uint8_t)(((type & (uint8_t)0x18) >> 3) << (pin * 2));
-	PORT -> PUPDR   |= (uint8_t)(((type & (uint8_t)0x06) >> 1) << (pin * 2));
-}
-//
-
-void GPIO_ALT_Setup(GPIO_TypeDef *PORT, uint8_t pin, uint8_t function)
-{
-	if(pin < 8)
+	if(port == GPIOA)
 	{
-		PORT -> AFR[0] |= (uint8_t)(function << (pin * 4));
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
+	}
+	else if(port == GPIOB)
+	{
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOBEN;
+	}
+	else if(port == GPIOC)
+	{
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOCEN;
+	}
+	else if(port == GPIOD)
+	{
+  RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
+	}
+	else if(port == GPIOE)
+	{
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIOEEN;
+	}
+		
+	port -> MODER   |= (uint8_t)(((type & (uint8_t)0xC0) >> 6) << (pin * 2));
+	port -> OTYPER  |= (uint8_t)(((type & (uint8_t)0x20) >> 5) << (pin * 1));
+	port -> OSPEEDR |= (uint8_t)(((type & (uint8_t)0x18) >> 3) << (pin * 2));
+	port -> PUPDR   |= (uint8_t)(((type & (uint8_t)0x06) >> 1) << (pin * 2));	
+	
+	if(pin >= 152 && pin <= 190)
+	{
+		if(pin < 8)
+	{
+		port -> AFR[0] |= (uint8_t)(type << (pin * 4));
 	}
 		else
 		{
-			PORT -> AFR[1] |= (uint8_t)(function << (pin * 4));
+		  port -> AFR[1] |= (uint8_t)(type << (pin * 4));
 		}
+	}
+
 }
 //
-
 
 uint32_t GPIO_Read_PORT(GPIO_TypeDef *PORT)
 {
@@ -54,5 +73,3 @@ uint16_t GPIO_Read_Pin(GPIO_TypeDef *PORT, uint8_t pin)
 {
 	return (PORT->IDR & pin);
 }
-//
-
